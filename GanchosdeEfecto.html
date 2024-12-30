@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id='root'></div>
+
+    <!-- Claro, aquí tienes un ejemplo básico de cómo usar ganchos de efecto 
+    (o useEffect) en React. Este gancho te permite realizar efectos secundarios 
+    en componentes funcionales, como llamadas a APIs, manipulación del DOM 
+    o sincronización de datos con el estado. -->
+
+    <script type="text/babel">
+
+        //   Observemos lo que sucede en el navegador viendo en Consola.
+
+        const { useState, useEffect } = React;
+
+      const ContadorConEfecto = () => {
+        const [contador, setContador] = useState(0);
+
+        // useEffect: Se ejecuta después de que el componente se renderiza
+        // Estas activando una suscripcion va a llamarse cada dos segundos, 
+        // son conceptos de javascript y son web APIs y podemos desmontarlo
+        // o desuscribirnos.
+
+        useEffect(() => {
+          const id = setInterval(() => {
+            console.log('contador');
+          }, 2000); // Cada 2 segundos
+          
+          // Cleanup function (para limpiar el intervalo cuando el componente se desmonte)
+          return () => {
+            clearInterval(id);
+          };
+        }, [contador]); // Ejecuta el efecto cada vez que el contador cambie
+
+        // Al poner esta lista vacia esto se va a llamar solo una vez
+
+        return (
+          <div>
+            <p>Has hecho clic {contador} veces</p>
+            <button onClick={() => setContador(contador + 1)}>Haz clic aquí</button>
+          </div>
+        );
+      };
+  
+      ReactDOM.render(<ContadorConEfecto />, document.getElementById('root'));
+      
+        // useState: Esto define un estado local contador que comienza en 0. 
+        // También tenemos la función setContador para actualizar este valor.
+
+        // useEffect: Este es el gancho de efecto. Le estamos pasando una función 
+        // que se ejecuta después de que el componente se renderiza 
+        // o cuando el valor del contador cambia.
+
+        // Dentro de useEffect, estamos cambiando el título de la página con 
+        // document.title usando el valor actual del contador.
+
+        // El segundo argumento del useEffect es una lista de dependencias ([contador]). 
+        // Esto le indica a React que solo ejecute el efecto cuando el valor de contador cambie. 
+        // Si no incluyes este argumento, el efecto se ejecutará en cada renderizado.
+
+        // Limpieza de efectos: El useEffect opcionalmente puede devolver una función de "limpieza". 
+        // Esta función se ejecuta justo antes de que el componente se desmonte o cuando 
+        // se actualiza el valor de contador. En este caso, estamos imprimiendo un mensaje 
+        // en la consola, pero en aplicaciones reales podrías detener temporizadores 
+        // o limpiar subscripciones a servicios externos.
+
+    </script>
+</body>
+</html>

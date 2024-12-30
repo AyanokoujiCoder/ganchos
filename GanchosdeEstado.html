@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contador con React</title>
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="app"></div>
+
+  <!-- Explicación:
+  useState: Este es el gancho que te permite agregar un estado a un componente funcional. 
+  En este caso, estamos usando useState(0) para declarar una variable de estado contador que inicialmente tiene el valor 0.
+  
+  Estado y actualización del estado: useState devuelve un arreglo con dos elementos:
+  
+  El primer elemento (contador) es el valor actual del estado.
+  El segundo elemento (setContador) es una función que te permite actualizar el valor de ese estado.
+  setContador(contador + 1): Cada vez que se hace clic en el botón, se llama a la función incrementar, 
+  la cual actualiza el estado usando setContador. Este método cambia el valor del contador sumándole 1 al valor actual.
+  
+  Renderización: Cada vez que el estado cambia (cuando se actualiza el contador), el componente se vuelve 
+  a renderizar para reflejar el nuevo valor del estado. Por eso, el número en el encabezado (<h1>Contador: 
+  {contador}</h1>) cambia al hacer clic en el botón. -->
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    function Contador() {
+      // Declaramos una variable de estado llamada "contador" con valor inicial 0
+      const [contador, setContador] = useState(0);
+
+      // Esta función incrementa el valor del contador en 1
+      const incrementar = () => {
+        setContador(contador + 1);
+      };
+
+      return (
+        <div>
+          <h1>Contador: {contador}</h1>
+          <button onClick={incrementar}>Incrementar</button>
+        </div>
+      );
+    }
+
+    ReactDOM.render(<Contador />, document.getElementById('app'));
+  </script>
+</body>
+</html>
